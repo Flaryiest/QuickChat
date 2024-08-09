@@ -5,6 +5,8 @@ import ScrollToTop from "../ScrollToTop"
 import { useForm } from "react-hook-form"
 import { useState } from "react" 
 import { Link } from "react-router-dom"
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
 
 function LogInPage() {
     const {register, handleSubmit, formState: {errors}} = useForm()
@@ -12,11 +14,17 @@ function LogInPage() {
     async function sendForm(data) {
         console.log(data)
         changeIsSubmitted(true)
+        createCookie()
     }
 
     const onSubmit = (data) => {
         sendForm(data)
     }
+    
+    function createCookie() {
+        cookies.set("JWT", "Spicy", {sameSite:'strict', path: "/", expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000), httpOnly: true})
+    }
+
     if (!isSubmitted) {
         return <div className="signUpForm">
             <ScrollToTop/>
