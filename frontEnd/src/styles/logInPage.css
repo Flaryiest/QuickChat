@@ -1,0 +1,193 @@
+@import url('https://rsms.me/inter/inter.css');
+
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url("/Poppins-Bold.ttf") format("truetype");
+}
+
+body {
+  overflow-y: scroll;
+}
+.signUpForm {
+  max-width: 100dvw;
+  max-height: 2000px;
+  background-color: #060609;
+  color: white;
+}
+
+.signUpFormContent {
+  display: flex;
+  flex-direction: column;
+  width: 100dvw;
+  align-items: center;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.signUpHeader {
+  font-size: 3em;
+  font-family: "Poppins-Bold";
+  color: rgb(43, 252, 207);
+  margin-bottom: 30px;
+}
+
+
+
+.signUpFormContent {
+  --color-light: #060609;
+  --color-dark: white;
+  --color-signal: rgb(43, 252, 207);
+  --color-background: var(--color-light);
+  --color-text: var(--color-dark);
+  --color-accent: var(--color-signal);
+  --size-bezel: .5rem;
+  --size-radius: 4px;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+  font-size: calc(.6rem + .4vw);
+  color: var(--color-text);
+  background: var(--color-background);
+  font-weight: 300;
+}
+
+
+mark {
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-weight: bold;
+  padding: 0 0.2em;
+}
+
+.card {
+  background: var(--color-background);
+  margin-top: calc(4 * var(--size-bezel));
+  border-radius: var(--size-radius);
+  border: 3px solid var(--color-shadow, currentColor);
+  box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
+  gap: 32px;
+  display: flex;
+  width: 60dvw;
+  height: 240px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardLayout {
+  display: flex;
+}
+
+.card *:first-child {
+  margin-top: 0;
+}
+
+.l-design-width {
+  max-width: 40rem;
+}
+
+.input {
+  position: relative;
+}
+
+.input__label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
+  margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
+  background: pink;
+  white-space: nowrap;
+  transform: translate(0, 0);
+  transform-origin: 0 0;
+  background: var(--color-background);
+  transition: transform 120ms ease-in;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.input__field {
+  box-sizing: border-box;
+  display: block;
+  width: 300px;
+  border: 3px solid currentColor;
+  padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+  color: currentColor;
+  background: transparent;
+  border-radius: var(--size-radius);
+}
+
+.input__field:focus + .input__label,
+.input__field:not(:placeholder-shown) + .input__label {
+  transform: translate(.25rem, -65%) scale(.8);
+  color: var(--color-accent);
+}
+
+.button-group {
+  margin-top: calc(var(--size-bezel) * 2.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.button {
+  width: 112px;
+  height: 40px;
+  background-color: rgb(43, 252, 207);
+  border: none;
+  border-radius: 4px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  font-weight: 600;
+  margin-top: 24px;
+  box-shadow: 1px 1px 1px 1px rgba(43, 252, 207, 0.5);
+  margin-bottom: 24px;
+  transition: box-shadow 0.15s;
+  font-size: 1.05em;
+  font-family: "Poppins-bold";
+}
+
+.button:hover {
+  box-shadow: 0px 0px 5px 5px rgba(43, 252, 207, 0.5);
+  cursor: pointer;
+}
+
+input[type="text"] { 
+  font-family: "Poppins";
+  font-size: 1em;
+}
+
+.hidden {
+  display: none;
+}
+
+.divider {
+  height: 50px;
+}
+
+.signUpFormSubmittedHeader {
+  font-family: "Poppins-bold";
+  font-size: 3em;
+}
+
+.signUpFormSubmittedText {
+  font-size: 1.4em;
+  width: 80dvw;
+  text-align: center;
+}
+
+.redirect {
+    font-family: "Poppins-bold";
+}
+
+@media only screen and (max-width: 1000px) {
+  .input__field {
+    width: 180px;
+  }
+  .card {
+    height: 180px;
+    margin-left: 52px;
+  }
+}

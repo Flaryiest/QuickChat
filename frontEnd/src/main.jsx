@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Homepage from './components/homepage/Homepage.jsx'
 import LogInPage from './components/logInPage/LogInPage.jsx'
