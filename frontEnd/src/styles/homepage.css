@@ -4,15 +4,93 @@ body {
 
 .homepage {
     max-width: 100dvw;
-    height: 1200px;
+    height: 1100px;
     background-color: #060609;
   }
 
 
 .homepageContent {
     max-width: 100dvw;
+    height: 700px;
     background-color: #060609;
     display: flex;
-    flex-direction: column;
+    color: white;
+    margin-left: 10dvw;
+    margin-right: 10dvw;
+    margin-top: 10dvh;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
     
+}
+
+.homepageLeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.homepageHeader {
+    font-size: 3em;
+    font-family: "Poppins-Bold";
+}
+
+.homepageText {
+    font-size: 1.5em;
+    line-height: 1.5em;
+    width: 40ch;
+    display: flex;
+    text-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.homepageImage {
+    width: 600px;
+    border-radius: 5px;
+}
+
+.homepageDemoButton {
+    align-self: flex-end;
+    font-size: 1.2em;
+    font-family: "Poppins-bold";
+    margin-top: 40px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    text-align: center;
+    border-color: rgb(43, 252, 207);
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 8px;
+}
+
+.aqua {
+    color:rgb(43, 252, 207);
+}
+
+@media only screen and (max-width: 800px) {
+    .homepageContent {
+        height: 700px;
+    }
+    .homepageHeader {
+        text-align: center;
+    }
+    .homepageText {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .homepageImage {
+        width: 350px;
+    }
+    .homepageDemoButton {
+        margin-top: 20px;
+    }
+    .homepageLeft {
+        align-items: center;
+    }
 }

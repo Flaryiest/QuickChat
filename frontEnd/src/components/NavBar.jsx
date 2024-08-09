@@ -8,10 +8,10 @@ function NavBar() {
         </div>
         <ul className="navLinks">
             <li>
-                <Link to="/info">Info</Link>
+                <Link to="/signup">Sign Up</Link>
             </li>
             <li>
-                <Link to="/signup"><span className="animated secondRow">Log In</span></Link>
+                <Link to="/login"><span className="animated secondRow">Log In</span></Link>
             </li>
         </ul>
 

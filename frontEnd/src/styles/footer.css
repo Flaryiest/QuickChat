@@ -44,16 +44,3 @@
 .marginBottom {
     margin-bottom: 40px;
 }
-@media only screen and (max-width: 750px) {
-    .footer {
-        height: 400px;
-    }
-    .footerContent {
-        flex-direction: column;
-        height: 398px;
-    }
-    .footerRight {
-        margin-bottom: 40px;
-    }
-    
-  }
