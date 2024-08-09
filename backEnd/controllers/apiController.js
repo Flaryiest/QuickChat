@@ -6,7 +6,15 @@ async function signUp(req, res) {
     res.sendStatus(200)
 }
 
+
 async function logIn(req, res) {
+    res.cookie("jwt", "test", {
+        sameSite:'strict', 
+        path: "/",
+        secure: true,
+        httpOnly: true,
+        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+    }).send("cookie")
     const user = {
         id: 1,
         username: "spicy",

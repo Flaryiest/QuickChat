@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form"
 import { useState } from "react" 
 import { Link } from "react-router-dom"
 import Cookies from "universal-cookie"
+import axios from "axios"
+axios.defaults.withCredentials  = true
 const cookies = new Cookies()
-
 function LogInPage() {
     const {register, handleSubmit, formState: {errors}} = useForm()
     const [isSubmitted, changeIsSubmitted] = useState(false)
@@ -16,15 +17,13 @@ function LogInPage() {
         changeIsSubmitted(true)
         createCookie()
     }
-
     const onSubmit = (data) => {
         sendForm(data)
     }
-    
-    function createCookie() {
-        cookies.set("JWT", "Spicy", {sameSite:'strict', path: "/", expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000), httpOnly: true})
+    async function createCookie() {
+        let cookie = await axios.get("http://localhost:3000/api/login", {withCredentials: true})
+        console.log(cookie)
     }
-
     if (!isSubmitted) {
         return <div className="signUpForm">
             <ScrollToTop/>
