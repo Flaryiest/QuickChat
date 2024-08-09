@@ -1,0 +1,60 @@
+.chatPage {
+    width: 100dvw;
+    height: 100dvh;
+    color: white;
+    background-color: #060609;
+}
+
+.chatPageContent {
+    display: flex;
+
+}
+
+.chatPageSideBar {
+    width: 400px;
+    background-color: #060609;
+    height: 90dvh;
+}
+.chatPageMain {
+    display: flex;
+    width: 100%;
+}
+
+
+.chatPageMainTop {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+.chatPageMainHeader {
+    text-align: center;
+    width: 100%;
+    font-size: 1.5em;
+}
+
+.chatPageSideBarTop {
+    margin-top: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+}
+
+
+
+.fade {
+    height: 1px;
+    background-color: white;
+    width: 80dvw;
+    margin: 0 auto;
+    background-image: linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+}
+
+.fadeColumn {
+    height: 90dvh;
+    background-color: white;
+    width: 1px;
+    margin: auto 0;
+    background-image: linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+}
