@@ -19,4 +19,9 @@ async function getMessages(chatID) {
     return rows
 }
 
-module.exports = {signUp, login, getChats, getMessages}
+async function getUsers() {
+    const { rows } = await pool.query("SELECT * FROM users")
+    return rows
+}
+
+module.exports = {signUp, login, getChats, getMessages, getUsers}

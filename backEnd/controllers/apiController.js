@@ -69,7 +69,15 @@ async function getChats(req, res) {
 }
 
 async function getMessages(req, res) {
-    
+
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats}
+async function getUsers(req, res) {
+    const users = await db.getUsers()
+    users.forEach((user) => {
+        delete user.password
+    })
+
+}
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers}

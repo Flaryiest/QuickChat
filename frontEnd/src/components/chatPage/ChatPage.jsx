@@ -6,6 +6,16 @@ import { useForm } from "react-hook-form"
 import "/src/styles/chatPage.css"
 
 function ChatPage() {
+    async function getChats() {
+        const user = await fetch("http://localhost:3000/api/chats", {
+            method: 'GET'
+        })
+        console.log(user)
+        return user
+    }
+
+    const chats = getChats()
+    
     return <div className="chatPage">
         <NavBar/>
         <ScrollToTop/>
