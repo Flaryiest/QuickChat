@@ -9,12 +9,12 @@ function SignUpPage() {
     const {register, handleSubmit, formState: {errors}} = useForm()
     const [isSubmitted, changeIsSubmitted] = useState(false)
     async function sendForm(data) {
-        await fetch("https://localhost:3000/api/signup", {
+        await fetch("http://localhost:3000/api/signup", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userName: data.userName, password: data.password})
+            body: JSON.stringify({username: data.userName, password: data.password})
         })
         changeIsSubmitted(true)
     }

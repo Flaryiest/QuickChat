@@ -1,33 +1,45 @@
 const db = require("../db/queries")
 const jwt = require("jsonwebtoken")
-
+const bcrypt = require("bcryptjs")
 async function signUp(req, res) {
-    console.log("test")
-    console.log(req.body.userName, "test")
-    await db.signUp(req.body.userName, req.body.password)
+    bcrypt.hash(req.body.password, 10, function(err, hash) {
+        db.signUp(req.body.username, hash)
+    });
     res.sendStatus(200)
 }
 
 
 async function logIn(req, res) {
-    res.status(202).cookie("jwt", "pog", {
-        sameSite:'strict', 
-        path: "/",
-        secure: true,
-        httpOnly: true,
-        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
-    }).send("cookie")
-    const user = {
-        id: 1,
-        username: "spicy",
-        email: "spicy@gmail.com"
+    let userInfo = await db.login(req.body.username)
+    console.log(userInfo, "test")
+    if (userInfo == null) {
+        res.sendStatus(400)
     }
-    jwt.sign({user}, "keep it spicy", {expiresIn: "10000s"}, (err, token) => {
-        if (err) {
-            console.log(err)
-        }
-        res.json({token: token})
-    })
+    else {
+        bcrypt.compare(req.body.password, userInfo.password, function(err, result) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log("logged in")
+                jwt.sign({userInfo}, "keep it spicy", {expiresIn: "10000s"}, (err, token) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    console.log(token)
+                    res.status(202).cookie("jwt", token, {
+                        sameSite:'strict', 
+                        path: "/",
+                        secure: true,
+                        httpOnly: true,
+                        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+                    }).send("cookie")
+                })
+            }
+            
+        })
+    }
+
 }
 
 async function getInfo(req, res) {

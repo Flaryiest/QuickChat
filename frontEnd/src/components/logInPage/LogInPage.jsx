@@ -15,8 +15,14 @@ function LogInPage() {
     const [isSubmitted, changeIsSubmitted] = useState(false)
     async function sendForm(data) {
         console.log(data)
+        await fetch("http://localhost:3000/api/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: data.userName, password: data.password})
+        })
         changeIsSubmitted(true)
-        createCookie()
     }
     const onSubmit = (data) => {
         sendForm(data)
