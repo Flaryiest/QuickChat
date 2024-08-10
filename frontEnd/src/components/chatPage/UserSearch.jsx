@@ -1,32 +1,45 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function UserSearch() {
     const [searchItem, setSearchItem] = useState('')
     const [users, setUsers] = useState([])
+    const [filteredUsers, setFilteredUsers] = useState([])
+
     async function getUsers() {
-        
-        const response = await fetch("http://localhost:3000/api/users", {
+        const response = await fetch("http://localhost:3000/api/chats", {
             method: 'GET',
             credentials: 'include'
         })
         const users = await response.json()
-        console.log(users, "in promise")
-        setUsers[users]
+        setUsers(users)
+        setFilteredUsers(users)
         return users
     }  
-    getUsers()
+    useEffect(() => {
+        getUsers()
+    }, [])
+
+    const createChat = (e) => {
+        const chatUser = e.target.value
+        console.log(chatUser)
+    }
     
-    console.log(users, "test")
     
     const handleInputChange = (e) => {
         const searchTerm = e.target.value
         setSearchItem(searchTerm)
+        const filteredItems = users.filter((user) => {
+            return user.username.toLowerCase().includes(searchTerm.toLowerCase())
+        })
+        setFilteredUsers(filteredItems)
     }
+
+    const filteredSlicedUsers = filteredUsers.slice(0, 5)
 
     return <div className="userSearch">
         <input type="text" className="chatPageUserSearch" placeholder="Search" value={searchItem} onChange={handleInputChange}></input>
         <ul className="userSearchList">
-            {users.map(user => <li key={user.id}>{user.username}</li>)}
+            {filteredSlicedUsers.map(user => <li key={user.id} className="userSearchItem"><button className="userSearchItem" value={user.username} onClick={createChat}>{user.username} +</button></li>)}
         </ul>
     </div>
 }

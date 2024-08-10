@@ -44,7 +44,7 @@
 }
 
 .chatPageUserSearch {
-    width: 100%;
+    max-width: 100%;
     height: 30px;
     text-align: center;
     font-family: "Poppins";
@@ -73,4 +73,24 @@ input[type="text"] {
     width: 1px;
     margin: auto 0;
     background-image: linear-gradient(left , white 2%, #E6E6E6 50%, white 98%);
+}
+
+.userSearchList {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.userSearchItem {
+    max-width: 100%;
+    height: 30px;
+    background-color: #060609;
+    color: white;
+    border: none;
+    font-family: "Poppins";
+    font-size: 0.8em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
