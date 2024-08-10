@@ -7,4 +7,6 @@ apiRouter.post("/login", apiController.logIn)
 
 apiRouter.get("/getInfo", apiController.verifyToken, apiController.getInfo)
 
+apiRouter.get("/chats", apiController.verifyToken, apiController.getChats)
+
 module.exports = apiRouter

@@ -30,7 +30,6 @@ async function logIn(req, res) {
                     res.status(202).cookie("jwt", token, {
                         sameSite:'strict', 
                         path: "/",
-                        secure: true,
                         httpOnly: true,
                         expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
                     }).send("cookie")
@@ -43,33 +42,34 @@ async function logIn(req, res) {
 }
 
 async function getInfo(req, res) {
-    jwt.verify(req.token, 'keep it spicy', (err, data) => {
-        if (err) {
-            console.log(err)
-            res.sendStatus(403)
-        }
-        else {
-            res.json({
-                data
-            })
-        }
-    })
+    console.log(req.user)
     res.send("Recieved")
 }
 
 async function verifyToken(req, res, next) {
-    const bearerHeader = req.headers["authorization"]
-    if (typeof bearerHeader !== 'undefined') {
-        const bearer = bearerHeader.split(" ")
-        const bearerToken = bearer[1]
-        req.token = bearerToken
-        next()
+    const token = req.cookies.jwt;
+    if (!token) {
+        return res.sendStatus(403);
     }
-    else {
-        res.sendStatus(403)
-    }
+    jwt.verify(token, "keep it spicy", (err, decoded) => {
+        if (err) {
+            return res.sendStatus(403);
+        }
+        req.user = decoded.userInfo;
+        next();
+    });
+
 }
 
+async function getChats(req, res) {
+    console.log(req.user)
+    const chats = await db.getChats(req.user.id)
+    console.log(chats)
+    res.json(chats)
+}
 
+async function getMessages(req, res) {
+    
+}
 
-module.exports = {signUp, logIn, verifyToken, getInfo}
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats}

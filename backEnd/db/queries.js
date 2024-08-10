@@ -9,4 +9,14 @@ async function login(username) {
     return rows[0]
 }
 
-module.exports = {signUp, login}
+async function getChats(userID) {
+    const { rows } = await pool.query("SELECT * FROM users WHERE id = ($1)", [userID])
+    return rows
+}
+
+async function getMessages(chatID) {
+    const { rows } = await pool.query("SELECT * FROM messages WHERE chatID = ($1)", [chatID])
+    return rows
+}
+
+module.exports = {signUp, login, getChats, getMessages}

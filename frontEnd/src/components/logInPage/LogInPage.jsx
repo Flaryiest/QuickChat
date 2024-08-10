@@ -20,17 +20,15 @@ function LogInPage() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username: data.userName, password: data.password})
+            body: JSON.stringify({username: data.userName, password: data.password}),
+            credentials: 'include'
         })
         changeIsSubmitted(true)
     }
     const onSubmit = (data) => {
         sendForm(data)
     }
-    async function createCookie() {
-        let cookie = await axios.get("http://localhost:3000/api/login", {withCredentials: true})
-        console.log(cookie)
-    }
+    
     if (!isSubmitted) {
         return <div className="signUpForm">
             <ScrollToTop/>
