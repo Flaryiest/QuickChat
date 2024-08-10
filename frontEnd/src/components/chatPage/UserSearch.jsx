@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-function UserSearch() {
+function UserSearch({renderFunction}) {
     const [searchItem, setSearchItem] = useState('')
     const [users, setUsers] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
@@ -29,6 +29,7 @@ function UserSearch() {
             },
             body: JSON.stringify({username: chatUser})
         })
+        renderFunction()
     }
 
     const createChat = (e) => {
