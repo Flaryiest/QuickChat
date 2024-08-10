@@ -9,8 +9,8 @@ async function login(username) {
     return rows[0]
 }
 
-async function getChats(userID) {
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = ($1)", [userID])
+async function getChats(username) {
+    const { rows } = await pool.query("SELECT * FROM chats WHERE usernameone = ($1) OR usernametwo = ($1) OR usernamethree = ($1) OR usernamefour = ($1) OR usernamefive = ($1)", [username])
     return rows
 }
 
@@ -19,9 +19,13 @@ async function getMessages(chatID) {
     return rows
 }
 
-async function getUsers() {
-    const { rows } = await pool.query("SELECT * FROM users ORDER BY username ASC")
+async function getUsers(username) {
+    const { rows } = await pool.query("SELECT * FROM users WHERE username != ($1) ORDER BY username ASC", [username])
     return rows
 }
 
-module.exports = {signUp, login, getChats, getMessages, getUsers}
+async function createChat(usernameOne, usernameTwo) {
+    await pool.query("INSERT INTO chats (usernameone, usernametwo) VALUES (($1), ($2))", [usernameOne, usernameTwo])
+}
+
+module.exports = {signUp, login, getChats, getMessages, getUsers, createChat}

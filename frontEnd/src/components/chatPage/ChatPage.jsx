@@ -1,11 +1,10 @@
 import { useState } from "react"
 import NavBar from "../NavBar"
-import Footer from "../Footer"
 import ScrollToTop from "../ScrollToTop"
-import { useForm } from "react-hook-form"
 import "/src/styles/chatPage.css"
 import UserSearch from "./UserSearch.jsx"
 function ChatPage() {
+
     async function getChats() {
         const response = await fetch("http://localhost:3000/api/chats", {
             method: 'GET',
@@ -19,12 +18,15 @@ function ChatPage() {
     
     return <div className="chatPage">
         <NavBar/>
-        <ScrollToTop/>
+        <ScrollToTop/>  
         <div className="chatPageContent">
             <div className="chatPageSideBar">
                 <div className="chatPageSideBarTop">
                     <div className="chatPageSideBarHeader">People</div>
                     <UserSearch/>
+                    <ul className="chatPageChats">
+                    {chats.map((chat) => <li>{chat.usernameone} {chat.usernametwo}</li>)}
+                    </ul>
                 </div>
             </div>
             <div className="fadeColumn"></div>

@@ -21,12 +21,10 @@ async function logIn(req, res) {
                 console.log(err)
             }
             else {
-                console.log("logged in")
                 jwt.sign({userInfo}, "keep it spicy", {expiresIn: "10000s"}, (err, token) => {
                     if (err) {
                         console.log(err)
                     }
-                    console.log(token)
                     res.status(202).cookie("jwt", token, {
                         sameSite:'lax', 
                         path: "/",
@@ -42,13 +40,11 @@ async function logIn(req, res) {
 }
 
 async function getInfo(req, res) {
-    console.log(req.user)
     res.send("Recieved")
 }
 
 async function verifyToken(req, res, next) {
     const token = req.cookies.jwt;
-    console.log(token)
     if (!token) {
         
         return res.sendStatus(403);
@@ -64,9 +60,8 @@ async function verifyToken(req, res, next) {
 }
 
 async function getChats(req, res) {
-    console.log(req.user)
-    const chats = await db.getChats(req.user.id)
-    console.log(chats)
+    const chats = await db.getChats(req.user.username)
+    console.log(chats, "chats")
     res.json(chats)
 }
 
@@ -75,12 +70,18 @@ async function getMessages(req, res) {
 }
 
 async function getUsers(req, res) {
-    const users = await db.getUsers()
+    const users = await db.getUsers(req.user.username)
     users.forEach((user) => {
         delete user.password
     })
     res.json(users)
-
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers}
+async function createChat(req, res) {
+    const defaultChatName = String(req.user.username + req.body.username)
+    await db.createChat(req.user.username, req.body.username)
+    res.sendStatus(200)
+}
+
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat}

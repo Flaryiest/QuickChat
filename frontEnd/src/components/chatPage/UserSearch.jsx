@@ -5,8 +5,12 @@ function UserSearch() {
     const [users, setUsers] = useState([])
     const [filteredUsers, setFilteredUsers] = useState([])
 
+    useEffect(() => {
+        getUsers()
+    }, [])
+
     async function getUsers() {
-        const response = await fetch("http://localhost:3000/api/chats", {
+        const response = await fetch("http://localhost:3000/api/users", {
             method: 'GET',
             credentials: 'include'
         })
@@ -15,13 +19,23 @@ function UserSearch() {
         setFilteredUsers(users)
         return users
     }  
-    useEffect(() => {
-        getUsers()
-    }, [])
+
+    async function createNewChat(chatUser) {
+        await fetch("http://localhost:3000/api/chats", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: chatUser})
+        })
+    }
 
     const createChat = (e) => {
         const chatUser = e.target.value
         console.log(chatUser)
+        createNewChat(chatUser)
+
     }
     
     

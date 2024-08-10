@@ -11,4 +11,6 @@ apiRouter.get("/chats", apiController.verifyToken, apiController.getChats)
 
 apiRouter.get("/users", apiController.verifyToken, apiController.getUsers)
 
+apiRouter.post("/chats", apiController.verifyToken, apiController.createChat)
+
 module.exports = apiRouter
