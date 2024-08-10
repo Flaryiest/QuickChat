@@ -9,9 +9,10 @@ const mainRouter = require("./routes/mainRouter.js")
 const port = process.env.PORT || 3000
 
 
-app.use(cors({origin: 'http://localhost:3000/', credentials: true}))
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
+
 app.get("/", (req, res) => {
     console.log("test")
     return res.send("Recieved Request")
@@ -22,6 +23,3 @@ app.use("/", mainRouter)
 app.listen(port, () => {
     console.log("Listening on port: " + String(port))
 })
-
-
-// APPARENTLY THE ISSUE MIGHT BE DUE TO ME USING THE SECURE HEADER WHEN SENDING THE COOKIE AND MY PATHS NOT BEING HTTPS? NOT SURE LOOK INTO THIS LATER

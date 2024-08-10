@@ -2,13 +2,15 @@ const db = require("../db/queries")
 const jwt = require("jsonwebtoken")
 
 async function signUp(req, res) {
+    console.log("test")
+    console.log(req.body.userName, "test")
     await db.signUp(req.body.userName, req.body.password)
     res.sendStatus(200)
 }
 
 
 async function logIn(req, res) {
-    res.cookie("jwt", "test", {
+    res.status(202).cookie("jwt", "pog", {
         sameSite:'strict', 
         path: "/",
         secure: true,
