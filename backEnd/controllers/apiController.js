@@ -28,7 +28,7 @@ async function logIn(req, res) {
                     }
                     console.log(token)
                     res.status(202).cookie("jwt", token, {
-                        sameSite:'strict', 
+                        sameSite:'lax', 
                         path: "/",
                         httpOnly: true,
                         expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
@@ -48,7 +48,9 @@ async function getInfo(req, res) {
 
 async function verifyToken(req, res, next) {
     const token = req.cookies.jwt;
+    console.log(token)
     if (!token) {
+        
         return res.sendStatus(403);
     }
     jwt.verify(token, "keep it spicy", (err, decoded) => {
@@ -77,6 +79,7 @@ async function getUsers(req, res) {
     users.forEach((user) => {
         delete user.password
     })
+    res.json(users)
 
 }
 

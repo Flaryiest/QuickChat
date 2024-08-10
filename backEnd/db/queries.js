@@ -20,7 +20,7 @@ async function getMessages(chatID) {
 }
 
 async function getUsers() {
-    const { rows } = await pool.query("SELECT * FROM users")
+    const { rows } = await pool.query("SELECT * FROM users ORDER BY username ASC")
     return rows
 }
 
