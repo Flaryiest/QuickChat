@@ -19,6 +19,11 @@
     font-size: 3em;
 }
 
+.settingsPageSubHeader {
+    font-family: "Poppins-bold";
+    font-size: 2em;
+}
+
 .uploadIcon {
-    width: 25px;
+    width: 15px;
 }

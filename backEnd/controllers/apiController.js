@@ -136,16 +136,28 @@ async function uploadProfilePicture(req, res) {
     const filePath = 'public/' + req.file.originalname
     try {
         const fileContent = fs.readFileSync(file.path)
-        const {data, error } = await supabase.storage.from("files").upload(filePath,  fileContent, {
+        const { error } = await supabase.storage.from("quickchat").upload(filePath,  fileContent, {
             cacheControl: "3600",
             upsert: false
         })
         if (error) {
             throw(error)
         }
+        const { data } = supabase.storage.from("quickchat").getPublicUrl(filePath);
+        console.log(data)
+        await db.setProfilePicture(data.publicUrl, req.user.id)
+
     } catch(err) {
         console.log(err)
+        res.status(500).json({ error: "Failed to upload file" })
     }
+
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut, getUser, uploadProfilePicture}
+async function getOwnProfilePicture(req, res) {
+    data = await db.getProfilePicture(req.user.id)
+    res.json(data)
+}
+
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut, getUser, uploadProfilePicture, getOwnProfilePicture}

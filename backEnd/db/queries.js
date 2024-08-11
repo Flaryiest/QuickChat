@@ -29,14 +29,23 @@ async function createChat(usernameOne, usernameTwo) {
 }
 
 async function sendMessage(userID, message, chatID) {
-    console.log(userID, chatID, message, "in query")
     await pool.query("INSERT INTO messages (chatID, userID, message) VALUES (($1), ($2), ($3))", [chatID, userID, message])
 }
 
 async function getMessages(chatID) {
-    console.log(chatID, "chatID in query")
     const {rows} = await pool.query("SELECT * FROM messages WHERE chatID = ($1)", [chatID])
     return rows
 }
 
-module.exports = {signUp, login, getChats, getMessages, getUsers, createChat, sendMessage, getMessages}
+async function setProfilePicture(imageURL, userID) {
+    console.log(imageURL, userID, "in query")
+    await pool.query("UPDATE USERS SET picture = ($1) WHERE id = ($2)", [imageURL, userID])
+}
+
+async function getProfilePicture(userID) {
+    const {rows} = await pool.query("SELECT picture FROM users WHERE id = ($1)", [userID])
+    console.log(rows)
+    return rows
+}
+
+module.exports = {signUp, login, getChats, getMessages, getUsers, createChat, sendMessage, getMessages, setProfilePicture, getProfilePicture}

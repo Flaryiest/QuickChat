@@ -3,9 +3,6 @@ import ScrollToTop from "../ScrollToTop"
 import "/src/styles/settingsPage.css"
 import { useState, useEffect } from "react"
 import axios from "axios"
-require("dotenv").config()
-const {createClient} = require("@supabase/supabase-js")
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
 
 function SettingsPage() {
     const [user, setUser] = useState({username: "Not Logged In"})
@@ -36,9 +33,10 @@ function SettingsPage() {
         <ScrollToTop/>
         <div className="settingsPageContent">
             <h2 className="settingsPageHeader">{user.username}</h2>
+            <div className="settingsPageSubHeader">Profile Picture</div>
             <div>
                 <div>Upload File</div>
-                    <input type="file" name="file" className="fileInput" onChange={(e) => setFile(e.target.files[0])}/>
+                    <input type="file" name="file" accept="image/*" className="fileInput" onChange={(e) => setFile(e.target.files[0])}/>
                     <button type="submit" className="uploadButton" onClick={upload}>
                         <img className="uploadIcon" src="/images/upload-icon.svg"/>
                     </button>
