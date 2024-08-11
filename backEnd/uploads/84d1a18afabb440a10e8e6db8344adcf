@@ -1,0 +1,10 @@
+﻿2024-08-02 10:27:33> Program: Starting Squirrel Updater: --createShortcut slack.exe -l Desktop,StartMenu
+2024-08-02 10:27:33> ApplyReleasesImpl: About to create shortcuts for slack.exe, rootAppDir C:\Users\ericm\AppData\Local\slack
+2024-08-02 10:27:33> ApplyReleasesImpl: Creating shortcut for slack.exe => C:\Users\ericm\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Slack Technologies Inc.\Slack.lnk
+2024-08-02 10:27:33> ApplyReleasesImpl: About to save shortcut: C:\Users\ericm\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Slack Technologies Inc.\Slack.lnk (target C:\Users\ericm\AppData\Local\slack\slack.exe, workingDir C:\Users\ericm\AppData\Local\slack\app-4.39.95, args , toastActivatorCSLID 9a92da87-49f2-51a4-a2b5-718444efc154)
+2024-08-02 10:27:33> ApplyReleasesImpl: Creating shortcut for slack.exe => C:\Users\ericm\Desktop\Slack.lnk
+2024-08-02 10:27:33> ApplyReleasesImpl: About to save shortcut: C:\Users\ericm\Desktop\Slack.lnk (target C:\Users\ericm\AppData\Local\slack\slack.exe, workingDir C:\Users\ericm\AppData\Local\slack\app-4.39.95, args , toastActivatorCSLID 9a92da87-49f2-51a4-a2b5-718444efc154)
+2024-08-02 10:27:33> ApplyReleasesImpl: Examining Pin: Discord.lnk
+2024-08-02 10:27:33> ApplyReleasesImpl: Examining Pin: File Explorer.lnk
+2024-08-02 10:27:33> ApplyReleasesImpl: Examining Pin: Firefox.lnk
+2024-08-02 10:27:33> ApplyReleasesImpl: Examining Pin: Microsoft Edge.lnk

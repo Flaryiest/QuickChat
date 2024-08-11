@@ -1,7 +1,10 @@
+require("dotenv").config()
 const db = require("../db/queries")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
-
+const fs = require("fs")
+const {createClient} = require("@supabase/supabase-js")
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
 
 async function signUp(req, res) {
     bcrypt.hash(req.body.password, 10, function(err, hash) {
@@ -9,7 +12,6 @@ async function signUp(req, res) {
     });
     res.sendStatus(200)
 }
-
 
 async function logIn(req, res) {
     let userInfo = await db.login(req.body.username)
@@ -127,4 +129,23 @@ async function getUser(req, res) {
     res.json(req.user)
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut, getUser}
+async function uploadProfilePicture(req, res) {
+    console.log(req.body)
+    const file = req.file
+    console.log(file, "file")
+    const filePath = 'public/' + req.file.originalname
+    try {
+        const fileContent = fs.readFileSync(file.path)
+        const {data, error } = await supabase.storage.from("files").upload(filePath,  fileContent, {
+            cacheControl: "3600",
+            upsert: false
+        })
+        if (error) {
+            throw(error)
+        }
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut, getUser, uploadProfilePicture}

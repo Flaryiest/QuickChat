@@ -1,6 +1,8 @@
 const express = require("express")
 const apiRouter = express.Router()
 const apiController = require("../controllers/apiController.js")
+const multer = require("multer")
+const upload = multer({dest: "uploads/"})
 apiRouter.post("/signup", apiController.signUp)
 
 apiRouter.post("/login", apiController.logIn)
@@ -22,5 +24,7 @@ apiRouter.get("/checkLoggedIn", apiController.checkLoggedIn)
 apiRouter.get("/log-out", apiController.verifyToken, apiController.logOut)
 
 apiRouter.get("/user", apiController.verifyToken, apiController.getUser)
+
+apiRouter.post("/profilePicture", apiController.verifyToken, upload.single('file'), apiController.uploadProfilePicture)
 
 module.exports = apiRouter
