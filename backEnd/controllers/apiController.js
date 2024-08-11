@@ -80,13 +80,36 @@ async function getUsers(req, res) {
 }
 
 async function createChat(req, res) {
-    const defaultChatName = String(req.user.username + req.body.username)
     await db.createChat(req.user.username, req.body.username)
     res.sendStatus(200)
 }
 
 async function sendMessage(req, res) {
-    await db.sendMessage(req.user.userID, req.body.message, req.body.password)
+    if (req.body.chatID == null) {
+        res.sendStatus(200)
+    }
+    await db.sendMessage(req.user.id, req.body.message, req.body.chatID)
+    res.sendStatus(200)
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage}
+async function getMessages(req, res) {
+    const messages = await db.getMessages(req.body.chatID)
+    if (messages != null) {
+    res.json(messages)
+    }
+    else {
+        res.status(418)
+    }
+}
+
+async function checkLoggedIn(req, res) {
+    const token = req.cookies.jwt
+    if (token) {
+        res.sendStatus(200)
+    }
+    else {
+        res.sendStatus(403)
+    }
+}
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn}

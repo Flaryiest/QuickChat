@@ -9,29 +9,6 @@ function ChatPage() {
     const [render, triggerRender] = useState(0)
     const [currentChatID, setCurrentChatID] = useState(null)
     const [messages, setMessages] = useState([])
-    function triggerRenderFunction() {
-        console.log(render)
-        triggerRender(prevRender => prevRender + 1)
-    }   
-    const handleInput = (e) => {
-        if (e.key === "Enter") {
-            console.log(e.key, "pog")
-        }
-        else {
-            console.log(e.key)
-            sendMessage(e.target.value)
-        }
-    }
-    async function sendMessage(message) {
-        await fetch("http://localhost:3000/api/sendMessage", {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({message: message, chatID: currentChatID})
-        })
-    }
 
     useEffect(() => {
         const ws = new WebSocket("ws://localhost:8080")
@@ -60,6 +37,37 @@ function ChatPage() {
         getChats()
     }, [render])
 
+    useEffect(() =>{ 
+        getMessages()
+    }, [render])
+
+    function triggerRenderFunction() {
+        console.log(render)
+        triggerRender(prevRender => prevRender + 1)
+    }   
+    const handleInput = (e) => {
+        if (e.key === "Enter") {
+            console.log(e.target.value, "pog")
+            sendMessage(e.target.value)
+            e.target.value = null
+            
+        }
+        else {
+            console.log(e.key)           
+        }
+    }
+
+    async function sendMessage(message) {
+        await fetch("http://localhost:3000/api/sendMessage", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({message: message, chatID: currentChatID})
+        })
+    }
+
     async function getChats() {
         const response = await fetch("http://localhost:3000/api/chats", {
             method: 'GET',
@@ -70,8 +78,21 @@ function ChatPage() {
         setChats(userChats)
     }
 
+    async function getMessages() {
+        const response = await fetch("http://localhost:3000/api/getMessages", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({chatID: currentChatID}),
+        })
+        const chatMessages = await response.json()
+        console.log(chatMessages)
+        setMessages(chatMessages)
+    }
+
     const changeChat = (e) => {
-        console.log(e.target.id)
         setCurrentChatID(e.target.id)
     }
     return <div className="chatPage">
@@ -95,6 +116,9 @@ function ChatPage() {
                     <div className="fade"></div>
                 </div>
                 <div className="chatPageMainBottom">
+                    <ul className="chatPageMessages">
+                        {messages.map((message) => <li key={message.id} className="chatPageMessage">{message.message}</li>)}
+                    </ul>
                     <div className="messageBar">
                     <input className="messageBarInput" placeholder="Send Message" onKeyDown={handleInput}></input>
                     </div>

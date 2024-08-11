@@ -29,7 +29,12 @@ async function createChat(usernameOne, usernameTwo) {
 }
 
 async function sendMessage(userID, message, chatID) {
-    console.log(userID, message, chatID)
+    console.log(userID, chatID, message, "in query")
+    await pool.query("INSERT INTO messages (chatID, userID, message) VALUES (($1), ($2), ($3))", [chatID, userID, message])
 }
 
-module.exports = {signUp, login, getChats, getMessages, getUsers, createChat, sendMessage}
+async function getMessages(chatID) {
+    const {rows} = await pool.query("SELECT * FROM messages WHERE chatID = ($1)", [chatID])
+}
+
+module.exports = {signUp, login, getChats, getMessages, getUsers, createChat, sendMessage, getMessages}

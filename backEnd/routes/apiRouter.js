@@ -15,4 +15,8 @@ apiRouter.post("/chats", apiController.verifyToken, apiController.createChat)
 
 apiRouter.post("/sendMessage", apiController.verifyToken, apiController.sendMessage)
 
+apiRouter.post("/getMessages", apiController.verifyToken, apiController.getMessages)
+
+apiRouter.get("/checkLoggedIn", apiController.checkLoggedIn)
+
 module.exports = apiRouter
