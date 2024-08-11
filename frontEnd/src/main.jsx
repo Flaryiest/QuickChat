@@ -3,8 +3,9 @@ import Homepage from './components/homepage/Homepage.jsx'
 import LogInPage from './components/logInPage/LogInPage.jsx'
 import SignUpPage from './components/signUpPage/SignUpPage.jsx'
 import ChatPage from './components/chatPage/ChatPage.jsx'
+import SettingsPage from './components/settingsPage/SettingPage.jsx'
 import './styles/index.css'
-import {createBrowserRouter ,RouterProvider ,Route ,Link } from "react-router-dom";
+import {createBrowserRouter ,RouterProvider} from "react-router-dom";
 
 const router = createBrowserRouter([
   {path: "/",
@@ -18,6 +19,9 @@ const router = createBrowserRouter([
   },
   {path: "chats",
   element: <ChatPage/>
+  },
+  {path: "settings",
+    element: <SettingsPage/>
   }
 ])
 

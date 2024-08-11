@@ -3,6 +3,8 @@ import NavBar from "../NavBar"
 import ScrollToTop from "../ScrollToTop"
 import "/src/styles/chatPage.css"
 import UserSearch from "./UserSearch.jsx"
+import { Link } from "react-router-dom"
+
 
 function ChatPage() {
     const [chats, setChats] = useState([])
@@ -10,7 +12,6 @@ function ChatPage() {
     const [currentChatID, setCurrentChatID] = useState(null)
     const [messages, setMessages] = useState([])
     const ws = useRef(null)
-
     useEffect(() => {
         ws.current = new WebSocket("ws://localhost:8080")
         ws.current.onopen = () => {
@@ -112,8 +113,13 @@ function ChatPage() {
                     <UserSearch renderNumber={render} renderFunction={triggerRenderFunction}/>
                     <div className="chatPageSideBarHeader">Chats</div>
                     <ul className="chatPageChats">
-                    {chats.map((chat) => <li key={chat.id} id={chat.id} onClick={changeChat} className="chatPageChat">{chat.usernameone} {chat.usernametwo}</li>)}
+                        {chats.map((chat) => (
+                        <li key={chat.id} id={chat.id} onClick={changeChat}className={`chatPageChat ${Number(chat.id) === Number(currentChatID) ? 'selectedChat' : ''}`}> {chat.usernameone} {chat.usernametwo} </li>
+                        ))}
                     </ul>
+                </div>
+                <div className="chatPageSideBarBottom">
+                    <Link to="/settings" className="chatPageSettings">Settings</Link>
                 </div>
             </div>
             <div className="fadeColumn"></div>

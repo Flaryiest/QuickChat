@@ -122,4 +122,9 @@ async function logOut(req, res) {
     res.send(200)
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut}
+async function getUser(req, res) {
+    console.log(req.user, "test")
+    res.json(req.user)
+}
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut, getUser}

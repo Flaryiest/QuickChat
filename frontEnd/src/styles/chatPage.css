@@ -7,7 +7,6 @@
 
 .chatPageContent {
     display: flex;
-
 }
 
 .chatPageSideBar {
@@ -97,14 +96,14 @@ input[type="text"] {
 }
 
 .chatPageChats {
-    max-width: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .chatPageChat {
-    max-width: 100%;
+    width: 100%;
     height: 30px;
     background-color: #060609;
     color: white;
@@ -127,6 +126,7 @@ input[type="text"] {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .messageBar {
@@ -157,4 +157,18 @@ input[type="text"] {
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.chatPageSideBarBottom {
+    height: 50%;
+    display: flex;
+    align-self: flex-end;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.selectedChat {
+    background-color: rgb(43, 252, 207);
+    width: 100%;
+    color: black;
 }

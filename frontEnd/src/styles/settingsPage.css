@@ -1,0 +1,24 @@
+.settingsPage {
+    width: 100dvw;
+    height: 100dvh;
+    color: white;
+    background-color: #060609;
+}
+
+.settingsPageContent {
+    width: 100dvw;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.settingsPageHeader {
+    font-family: "Poppins-Bold";
+    font-size: 3em;
+}
+
+.uploadIcon {
+    width: 25px;
+}

@@ -21,4 +21,6 @@ apiRouter.get("/checkLoggedIn", apiController.checkLoggedIn)
 
 apiRouter.get("/log-out", apiController.verifyToken, apiController.logOut)
 
+apiRouter.get("/user", apiController.verifyToken, apiController.getUser)
+
 module.exports = apiRouter
