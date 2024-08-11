@@ -1,6 +1,8 @@
 const db = require("../db/queries")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
+
+
 async function signUp(req, res) {
     bcrypt.hash(req.body.password, 10, function(err, hash) {
         db.signUp(req.body.username, hash)
@@ -83,5 +85,8 @@ async function createChat(req, res) {
     res.sendStatus(200)
 }
 
+async function sendMessage(req, res) {
+    await db.sendMessage(req.user.userID, req.body.message, req.body.password)
+}
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat}
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage}

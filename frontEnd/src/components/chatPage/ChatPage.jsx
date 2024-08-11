@@ -3,15 +3,58 @@ import NavBar from "../NavBar"
 import ScrollToTop from "../ScrollToTop"
 import "/src/styles/chatPage.css"
 import UserSearch from "./UserSearch.jsx"
+
 function ChatPage() {
     const [chats, setChats] = useState([])
     const [render, triggerRender] = useState(0)
     const [currentChatID, setCurrentChatID] = useState(null)
-
+    const [messages, setMessages] = useState([])
     function triggerRenderFunction() {
         console.log(render)
         triggerRender(prevRender => prevRender + 1)
     }   
+    const handleInput = (e) => {
+        if (e.key === "Enter") {
+            console.log(e.key, "pog")
+        }
+        else {
+            console.log(e.key)
+            sendMessage(e.target.value)
+        }
+    }
+    async function sendMessage(message) {
+        await fetch("http://localhost:3000/api/sendMessage", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({message: message, chatID: currentChatID})
+        })
+    }
+
+    useEffect(() => {
+        const ws = new WebSocket("ws://localhost:8080")
+        ws.onopen = () => {
+            console.log("websocket opened")
+        }
+        ws.onmessage = (event) => {
+            console.log(event.data)
+            console.log("recieved message")
+        }
+        ws.onclose = () => {
+            console.log("websocket closed")
+        }
+        ws.onerror = (error) => {
+            console.log(error)
+            console.log("websocket error")
+            
+        }
+        return () => {
+            ws.close()
+        }
+        
+    }, [])
 
     useEffect(() => {
         getChats()
@@ -29,6 +72,7 @@ function ChatPage() {
 
     const changeChat = (e) => {
         console.log(e.target.id)
+        setCurrentChatID(e.target.id)
     }
     return <div className="chatPage">
         <NavBar/>
@@ -52,7 +96,7 @@ function ChatPage() {
                 </div>
                 <div className="chatPageMainBottom">
                     <div className="messageBar">
-                    <input className="messageBarInput" placeholder="Send Message"></input>
+                    <input className="messageBarInput" placeholder="Send Message" onKeyDown={handleInput}></input>
                     </div>
                 </div>
             </div>
