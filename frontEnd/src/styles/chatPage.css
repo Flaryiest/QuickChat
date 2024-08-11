@@ -125,7 +125,8 @@ input[type="text"] {
 .chatPageMainBottom {
     height: 100%;
     display: flex;
-    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
 }
 
 .messageBar {
@@ -150,4 +151,10 @@ input[type="text"] {
 }
 .messageBar:focus {
     outline: none;
+}
+
+.chatPageMessages {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }

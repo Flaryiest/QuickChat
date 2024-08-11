@@ -34,7 +34,9 @@ async function sendMessage(userID, message, chatID) {
 }
 
 async function getMessages(chatID) {
+    console.log(chatID, "chatID in query")
     const {rows} = await pool.query("SELECT * FROM messages WHERE chatID = ($1)", [chatID])
+    return rows
 }
 
 module.exports = {signUp, login, getChats, getMessages, getUsers, createChat, sendMessage, getMessages}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import NavBar from "../NavBar"
 import ScrollToTop from "../ScrollToTop"
 import "/src/styles/chatPage.css"
@@ -9,26 +9,28 @@ function ChatPage() {
     const [render, triggerRender] = useState(0)
     const [currentChatID, setCurrentChatID] = useState(null)
     const [messages, setMessages] = useState([])
+    const ws = useRef(null)
 
     useEffect(() => {
-        const ws = new WebSocket("ws://localhost:8080")
-        ws.onopen = () => {
+        ws.current = new WebSocket("ws://localhost:8080")
+        ws.current.onopen = () => {
             console.log("websocket opened")
         }
-        ws.onmessage = (event) => {
+        ws.current.onmessage = (event) => {
             console.log(event.data)
             console.log("recieved message")
+            triggerRender(prevRender => prevRender + 1)
         }
-        ws.onclose = () => {
+        ws.current.onclose = () => {
             console.log("websocket closed")
         }
-        ws.onerror = (error) => {
+        ws.current.onerror = (error) => {
             console.log(error)
             console.log("websocket error")
             
         }
         return () => {
-            ws.close()
+            ws.current.close()
         }
         
     }, [])
@@ -39,21 +41,16 @@ function ChatPage() {
 
     useEffect(() =>{ 
         getMessages()
-    }, [render])
+    }, [render, currentChatID])
 
     function triggerRenderFunction() {
-        console.log(render)
         triggerRender(prevRender => prevRender + 1)
     }   
     const handleInput = (e) => {
         if (e.key === "Enter") {
-            console.log(e.target.value, "pog")
             sendMessage(e.target.value)
             e.target.value = null
             
-        }
-        else {
-            console.log(e.key)           
         }
     }
 
@@ -71,8 +68,8 @@ function ChatPage() {
 
     async function sendMessageToServer(message) {
         const messageObject = {chatID: currentChatID, message: message}
-        if (ws && ws.readState === WebSocket.OPEN) {
-            ws.send(JSON.stringify(messageObject))
+        if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+            ws.current.send(JSON.stringify(messageObject))
             console.log("message sent")
         }
         else {
@@ -86,7 +83,6 @@ function ChatPage() {
             credentials: 'include'
         })
         const userChats = await response.json()
-        console.log(userChats)
         setChats(userChats)
     }
 
@@ -100,12 +96,11 @@ function ChatPage() {
             body: JSON.stringify({chatID: currentChatID}),
         })
         const chatMessages = await response.json()
-        console.log(chatMessages)
         setMessages(chatMessages)
     }
 
-    const changeChat = (e) => {
-        setCurrentChatID(e.target.id)
+    const changeChat = async (e) => {
+        await setCurrentChatID(e.target.id)
     }
     return <div className="chatPage">
         <NavBar/>

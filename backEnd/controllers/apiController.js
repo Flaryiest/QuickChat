@@ -87,18 +87,23 @@ async function createChat(req, res) {
 async function sendMessage(req, res) {
     if (req.body.chatID == null) {
         res.sendStatus(200)
+        
     }
-    await db.sendMessage(req.user.id, req.body.message, req.body.chatID)
-    res.sendStatus(200)
+    else {
+        await db.sendMessage(req.user.id, req.body.message, req.body.chatID)
+        res.sendStatus(200)
+    }
+
 }
 
 async function getMessages(req, res) {
     const messages = await db.getMessages(req.body.chatID)
+    console.log(messages, "messages")
     if (messages != null) {
-    res.json(messages)
+        res.json(messages)
     }
     else {
-        res.status(418)
+        res.sendStatus(418)
     }
 }
 
