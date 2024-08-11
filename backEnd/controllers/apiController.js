@@ -108,8 +108,13 @@ async function checkLoggedIn(req, res) {
         res.sendStatus(200)
     }
     else {
-        res.sendStatus(403)
+        res.sendStatus(202)
     }
 }
 
-module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn}
+async function logOut(req, res) {
+    res.clearCookie("jwt")
+    res.send(200)
+}
+
+module.exports = {signUp, logIn, verifyToken, getInfo, getChats, getUsers, createChat, sendMessage, getMessages, checkLoggedIn, logOut}

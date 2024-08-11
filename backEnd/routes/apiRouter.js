@@ -19,4 +19,6 @@ apiRouter.post("/getMessages", apiController.verifyToken, apiController.getMessa
 
 apiRouter.get("/checkLoggedIn", apiController.checkLoggedIn)
 
+apiRouter.get("/log-out", apiController.verifyToken, apiController.logOut)
+
 module.exports = apiRouter

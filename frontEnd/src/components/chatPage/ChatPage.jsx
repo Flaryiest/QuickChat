@@ -58,6 +58,7 @@ function ChatPage() {
     }
 
     async function sendMessage(message) {
+        await sendMessageToServer(message)
         await fetch("http://localhost:3000/api/sendMessage", {
             method: 'POST',
             credentials: 'include',
@@ -66,6 +67,17 @@ function ChatPage() {
             },
             body: JSON.stringify({message: message, chatID: currentChatID})
         })
+    }
+
+    async function sendMessageToServer(message) {
+        const messageObject = {chatID: currentChatID, message: message}
+        if (ws && ws.readState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(messageObject))
+            console.log("message sent")
+        }
+        else {
+            console.log("no websocket")
+        }
     }
 
     async function getChats() {
