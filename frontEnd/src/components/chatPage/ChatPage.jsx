@@ -6,6 +6,7 @@ import UserSearch from "./UserSearch.jsx"
 import { Link } from "react-router-dom"
 import ProfilePicture from "../profilePicture.jsx"
 import moment from "moment"
+import ScrollToBottom from "../ScrollToBottom.jsx"
 function ChatPage() {
     const [chats, setChats] = useState([])
     const [render, triggerRender] = useState(null)
@@ -63,6 +64,7 @@ function ChatPage() {
             },
             body: JSON.stringify({message: message, chatID: currentChatID})
         })
+        triggerRenderFunction()
     }
 
     async function sendMessageToServer(message) {
@@ -124,7 +126,7 @@ function ChatPage() {
                     <div className="fade"></div>
                 </div>
                 <div className="chatPageMainBottom">
-                    <ul className="chatPageMessages">
+                    <ul className="chatPageMessages">                 
                         {messages.map((message) => <li key={message.id} className="chatPageMessage">
                             <ProfilePicture image={message.picture}></ProfilePicture>
                             <div className="chatPageMessageContent">

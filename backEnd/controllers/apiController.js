@@ -114,7 +114,7 @@ async function checkLoggedIn(req, res) {
 
 async function logOut(req, res) {
     res.clearCookie("jwt")
-    res.send(200)
+    res.sendStatus(200)
 }
 
 async function getUser(req, res) {

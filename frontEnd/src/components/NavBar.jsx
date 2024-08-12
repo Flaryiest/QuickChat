@@ -1,9 +1,9 @@
 import "/src/styles/navbar.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 function NavBar() {
     const [loginStatus, setLoginStatus] = useState(null)
-
+    const navigate = useNavigate()
     async function getStatus() {
         const response = await fetch("http://localhost:3000/api/checkLoggedIn", {
             method: 'GET',
@@ -18,11 +18,12 @@ function NavBar() {
     }
 
     async function logOut() {
-        setLoginStatus(false)
         await fetch("http://localhost:3000/api/log-out", {
             method: 'GET',
             credentials: "include",
         })
+        setLoginStatus(false)
+        navigate("/")
         
     }
 
@@ -53,7 +54,7 @@ function NavBar() {
                 <Link to="/chats"><span className="animated secondRow">Chats</span></Link>
             </li>
             <li>
-                <Link to="/" onClick={logOut}>Log Out</Link>
+                <Link onClick={logOut}>Log Out</Link>
             </li>
         </ul>
     </header>
