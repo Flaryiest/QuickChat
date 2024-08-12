@@ -25,8 +25,10 @@ apiRouter.get("/log-out", apiController.verifyToken, apiController.logOut)
 
 apiRouter.get("/user", apiController.verifyToken, apiController.getUser)
 
+apiRouter.get("/profilePicture",apiController.verifyToken, apiController.getOwnProfilePicture)
+
 apiRouter.post("/profilePicture", apiController.verifyToken, upload.single('file'), apiController.uploadProfilePicture)
 
-apiRouter.get("/profilePicture",apiController.verifyToken, apiController.getOwnProfilePicture)
+
 
 module.exports = apiRouter

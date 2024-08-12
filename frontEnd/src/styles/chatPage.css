@@ -127,6 +127,7 @@ input[type="text"] {
     justify-content: flex-end;
     flex-direction: column;
     overflow-y: scroll;
+    align-items: center;
 }
 
 .messageBar {
@@ -154,9 +155,17 @@ input[type="text"] {
 }
 
 .chatPageMessages {
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.chatPageMessage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .chatPageSideBarBottom {
@@ -172,3 +181,18 @@ input[type="text"] {
     width: 100%;
     color: black;
 }
+
+.smallText {
+    font-size: 0.8em;
+}
+.chatPageMessageTop {
+    display: flex;
+    gap: 8px;
+}
+
+.chatPageMessageContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+

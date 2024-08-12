@@ -69,10 +69,6 @@ async function getChats(req, res) {
     res.json(chats)
 }
 
-async function getMessages(req, res) {
-
-}
-
 async function getUsers(req, res) {
     const users = await db.getUsers(req.user.username)
     users.forEach((user) => {
@@ -92,7 +88,7 @@ async function sendMessage(req, res) {
         
     }
     else {
-        await db.sendMessage(req.user.id, req.body.message, req.body.chatID)
+        await db.sendMessage(req.user.username, req.body.message, req.body.chatID, req.user.picture)
         res.sendStatus(200)
     }
 

@@ -1,7 +1,7 @@
 const pool = require("./pool.js")
 
 async function signUp(username, password) {
-    await pool.query("INSERT INTO users (username, password) VALUES (($1), ($2))", [username, password])
+    await pool.query("INSERT INTO users (username, password, picture) VALUES (($1), ($2), ($3))", [username, password, 'https://bdrgmuuqbavxeagfglkn.supabase.co/storage/v1/object/public/quickchat/public/app.ico'])
 }
 
 async function login(username) {
@@ -28,8 +28,8 @@ async function createChat(usernameOne, usernameTwo) {
     await pool.query("INSERT INTO chats (usernameone, usernametwo) VALUES (($1), ($2))", [usernameOne, usernameTwo])
 }
 
-async function sendMessage(userID, message, chatID) {
-    await pool.query("INSERT INTO messages (chatID, userID, message) VALUES (($1), ($2), ($3))", [chatID, userID, message])
+async function sendMessage(userID, message, chatID, picture) {
+    await pool.query("INSERT INTO messages (chatID, username, message, picture) VALUES (($1), ($2), ($3), ($4))", [chatID, userID, message, picture])
 }
 
 async function getMessages(chatID) {
