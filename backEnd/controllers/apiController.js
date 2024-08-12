@@ -15,19 +15,18 @@ async function signUp(req, res) {
 
 async function logIn(req, res) {
     let userInfo = await db.login(req.body.username)
-    console.log(userInfo, "test")
     if (userInfo == null) {
         res.sendStatus(400)
     }
     else {
         bcrypt.compare(req.body.password, userInfo.password, function(err, result) {
             if (err) {
-                console.log(err)
+                res.sendStatus(400)
             }
             else {
                 jwt.sign({userInfo}, "keep it spicy", {expiresIn: "10000s"}, (err, token) => {
                     if (err) {
-                        console.log(err)
+                        res.sendStatus(400)
                     }
                     res.status(202).cookie("jwt", token, {
                         sameSite:'lax', 
@@ -65,7 +64,6 @@ async function verifyToken(req, res, next) {
 
 async function getChats(req, res) {
     const chats = await db.getChats(req.user.username)
-    console.log(chats, "chats")
     res.json(chats)
 }
 
@@ -96,7 +94,6 @@ async function sendMessage(req, res) {
 
 async function getMessages(req, res) {
     const messages = await db.getMessages(req.body.chatID)
-    console.log(messages, "messages")
     if (messages != null) {
         res.json(messages)
     }
@@ -121,14 +118,11 @@ async function logOut(req, res) {
 }
 
 async function getUser(req, res) {
-    console.log(req.user, "test")
     res.json(req.user)
 }
 
 async function uploadProfilePicture(req, res) {
-    console.log(req.body)
     const file = req.file
-    console.log(file, "file")
     const filePath = 'public/' + req.file.originalname
     try {
         const fileContent = fs.readFileSync(file.path)
@@ -140,7 +134,6 @@ async function uploadProfilePicture(req, res) {
             throw(error)
         }
         const { data } = supabase.storage.from("quickchat").getPublicUrl(filePath);
-        console.log(data)
         await db.setProfilePicture(data.publicUrl, req.user.id)
 
     } catch(err) {

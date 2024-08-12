@@ -19,7 +19,6 @@ function ChatPage() {
             console.log("websocket opened")
         }
         ws.current.onmessage = (event) => {
-            console.log(event.data)
             console.log("recieved message")
             triggerRender(prevRender => prevRender + 1)
         }
@@ -27,9 +26,7 @@ function ChatPage() {
             console.log("websocket closed")
         }
         ws.current.onerror = (error) => {
-            console.log(error)
-            console.log("websocket error")
-            
+            console.log(error)    
         }
         return () => {
             ws.current.close()
@@ -72,10 +69,6 @@ function ChatPage() {
         const messageObject = {chatID: currentChatID, message: message}
         if (ws.current && ws.current.readyState === WebSocket.OPEN) {
             ws.current.send(JSON.stringify(messageObject))
-            console.log("message sent")
-        }
-        else {
-            console.log("no websocket")
         }
     }
 
@@ -104,7 +97,6 @@ function ChatPage() {
     const changeChat = async (e) => {
         await setCurrentChatID(e.target.id)
     }
-    console.log(currentChatID)
     return <div className="chatPage">
         <NavBar/>
         <ScrollToTop/>  

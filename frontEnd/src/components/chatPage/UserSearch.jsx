@@ -34,7 +34,6 @@ function UserSearch({renderFunction}) {
 
     const createChat = (e) => {
         const chatUser = e.target.value
-        console.log(chatUser)
         createNewChat(chatUser)
 
     }

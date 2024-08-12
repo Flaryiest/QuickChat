@@ -1,13 +1,23 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import NavBar from "../NavBar"
 import Footer from "../Footer"
 import ScrollToTop from "../ScrollToTop"
 import { useForm } from "react-hook-form"
+
 import "/src/styles/signUpPage.css"
 
 function SignUpPage() {
     const {register, handleSubmit, formState: {errors}} = useForm()
     const [isSubmitted, changeIsSubmitted] = useState(false)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isSubmitted) {
+            navigate("/login")
+        }
+    }, [isSubmitted, navigate])
+
     async function sendForm(data) {
         await fetch("http://localhost:3000/api/signup", {
             method: 'POST',

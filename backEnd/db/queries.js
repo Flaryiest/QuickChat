@@ -33,18 +33,16 @@ async function sendMessage(userID, message, chatID, picture) {
 }
 
 async function getMessages(chatID) {
-    const {rows} = await pool.query("SELECT * FROM messages WHERE chatID = ($1)", [chatID])
+    const {rows} = await pool.query("SELECT * FROM messages WHERE chatID = ($1) LIMIT 20", [chatID])
     return rows
 }
 
 async function setProfilePicture(imageURL, userID) {
-    console.log(imageURL, userID, "in query")
     await pool.query("UPDATE USERS SET picture = ($1) WHERE id = ($2)", [imageURL, userID])
 }
 
 async function getProfilePicture(userID) {
     const {rows} = await pool.query("SELECT picture FROM users WHERE id = ($1)", [userID])
-    console.log(rows)
     return rows
 }
 
