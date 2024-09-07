@@ -6,7 +6,6 @@ import UserSearch from "./UserSearch.jsx"
 import { Link } from "react-router-dom"
 import ProfilePicture from "../profilePicture.jsx"
 import moment from "moment"
-import ScrollToBottom from "../ScrollToBottom.jsx"
 function ChatPage() {
     const [chats, setChats] = useState([])
     const [render, triggerRender] = useState(null)
